@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ToDo List</title>
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body class="bg-secondary">
+		<nav>
+			<div class="d-flex navbar bg-dark text-white justify-content-center">
+				<div class="container justify-content-center">
+					<h1>Better ToDo List</h1>
+				</div>
+				<div class="container justify-content-center">
+					<div>
+						<button onclick="deleteAllTasks()" type="button" class="btn btn-secondary" id="btn-clear">Clear</button>
+						<button onclick="logout()" type="button" class="btn btn-secondary" id="btn-clear">Logout</button>
+						<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#showToken">Show token</button>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<br>
+		<div class="container cardmain d-flex justify-content-center">
+			<div class="card bg-dark">
+				<div class="card-body bg-dark text-white" style="border-radius: 10px; width: 30rem;">
+					<h5 class="card-title"> Naziv/Vreme</h5>
+					<input type="text" placeholder="Naziv" class="form-control" id="input1">
+					<div class="input-group mt-3">
+						<input type="text" class="form-control" id="input12" placeholder="dd">
+						<label class="input-group-text">:</label>
+						<input type="text" class="form-control" id="input13" placeholder="hh">
+						<label class="input-group-text">:</label>
+						<input type="text" class="form-control" id="input14" placeholder="mm">
+						<label class="input-group-text">:</label>
+						<input type="text" class="form-control" id="input15" placeholder="ss">
+					  </div>
+					<br>
+					<div class="btn-group" role="group" aria-label="Basic outlined example" style="width: 100%;">
+						<button onclick="addTask()" type="button" class="btn btn-outline-light d-block" id="button1">ADD TASK</button>
+						<button onclick="updateTask()" type="button" class="btn btn-outline-light d-none" id="button2">UPDATE TASK</button>
+						<button onclick="deleteTask()" type="button" class="btn btn-outline-light d-none" id="button3">DELETE TASK</button>
+						<button onclick="cancel()" type="button" class="btn btn-outline-light d-none" id="button4">BACK</button>
+					  </div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="showToken" tabindex="-1" role="dialog" aria-labelledby="TokenCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="TokenTitle">Token</h5>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+						<p>Your token:</p>
+						<input class="form-control" id="token" type="password" disabled>
+						<div class="form-check form-switch">
+							<input onclick="reveal()" class="form-check-input" type="checkbox" id="revealToken">
+							<label class="form-check-label" for="revealToken">Reveal secret token</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="jquery/jquery.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/todo.js"></script>
+	</body>
+</html>

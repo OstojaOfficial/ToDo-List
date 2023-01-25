@@ -4,13 +4,48 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>ToDo List</title>
+		<title>Better ToDo List</title>
 		<link rel="stylesheet" href="css/main.css">
 	</head>
-	<body>
-		<h1>Test big text</h1>
+	<body class="bg-secondary">
+		<nav>
+			<div class="d-flex navbar bg-dark text-white justify-content-center">
+				<div class="container justify-content-center">
+					<h1>Better ToDo List</h1>
+				</div>
+			</div>
+		</nav>
+
+		<div class="d-flex justify-content-md-center align-items-center" style="height: 90vh !important;">
+			<div>
+				<button onclick="generateToken()" type="button" class="btn btn-primary btn-lg">Generate token</button>
+				<button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#login">Login with existing token</button>
+			</div>
+		</div>
+
+		<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="LoginCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="loginTitle">Login prompt</h5>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Provide your token:</p>
+						<input class="form-control" id="token" type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" aria-label="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button onclick="login()" type="button" class="btn btn-primary">Login</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<script src="jquery/jquery.js"></script>
-		<script src="js/script.js"></script>
+		<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="js/index.js"></script>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import * as path from 'path';
 import mongoose from 'mongoose';
@@ -22,6 +22,7 @@ db.once("open", () => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/jquery', express.static(path.join(__dirname, '../node_modules/jquery/dist/')));
+app.use('/bootstrap', express.static(path.join(__dirname, '../node_modules/bootstrap/dist/')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
@@ -34,12 +35,12 @@ app.post('/api/add', (req, res) => {
     title: req.query.title as string,
     token: req.query.token as string,
     expire: parseInt(req.query.expire as string)
-  })
+});
 
   return data
-        .save()
-        .then((data) => res.status(201).json({ data }))
-        .catch((error) => res.status(500).json({ error }));
+    .save()
+    .then((data) => res.status(201).json({ data }))
+    .catch((error) => res.status(500).json({ error }));
 });
 
 // Updates task
@@ -59,7 +60,7 @@ app.patch('/api/update/:id', (req, res) => {
           .then((task) => res.status(201).json({ task }))
           .catch((error) => res.status(500).json({ error }));
       } else {
-        return res.status(404).json({ message: 'not found' });
+        return res.status(404).json({ message: 'task not found' });
       }
     })
     .catch((error) => res.status(500).json({ error }));
@@ -92,6 +93,7 @@ app.get('/api/list', (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 });
 
+// Gets API health
 app.get('/api/health', (req, res) => {
-  res.send("OK");
+  res.status(200).json({ "status": "OK" });
 });
