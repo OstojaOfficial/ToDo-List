@@ -1,24 +1,57 @@
 import express, { Express } from 'express';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 import * as path from 'path';
 import mongoose from 'mongoose';
+import * as fs from 'fs'; 
 import Task from './models/task';
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.SERVER_PORT;
-const mongo_url = process.env.MONGO_URL;
-const mongo_db = process.env.MONGO_DB;
+
+interface ENV {
+  port: number | undefined;
+  mongo_url: string | undefined;
+  mongo_db: string | undefined;
+  public_url: string | undefined;
+}
+
+interface config {
+  port: number;
+  mongo_url: string;
+  mongo_db: string;
+  public_url: string;
+}
+
+const getConfig = (): ENV => {
+  return {
+    port: process.env.SERVER_PORT ? Number(process.env.SERVER_PORT ) : undefined,
+    mongo_url: process.env.MONGO_URL,
+    mongo_db: process.env.MONGO_DB,
+    public_url: process.env.PUBLIC_URL
+  }
+}
+
+const config = getConfig();
+
+const data = `{
+  "public_url": "${config.public_url}"
+}`;
+
+fs.writeFile('dist/public/js/appconfig.json', data, (err) => {
+  if (err) {
+    throw err
+  }
+});
 
 mongoose.set('strictQuery', false);
-mongoose.connect(`${mongo_url as string}/${mongo_db as string}`);
+mongoose.connect(`${config.mongo_url as string}/${config.mongo_db as string}`);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", () => {
   console.log("Connected successfully");
-  app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+  app.listen(config.port, () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:${config.port}`);
   });
 });
 

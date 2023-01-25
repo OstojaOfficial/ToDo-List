@@ -1,7 +1,13 @@
 const regex ="^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$"
 
+let config = "";
+
+fetch('./js/appconfig.json')
+    .then((response) => response.json())
+    .then((json) => config = json);
+
 if(document.cookie.indexOf('token=') != -1) {
-	window.location.replace("http://127.0.0.1:8080/todo.html");
+	window.location.replace(`${config.public_url}/todo.html`);
 }
 
 function generateToken() {
@@ -14,7 +20,7 @@ function generateToken() {
 
     document.cookie = `token=${uuid}`;
 
-	window.location.replace("http://127.0.0.1:8080/todo.html");
+	window.location.replace(`${config.public_url}/todo.html`);
 }
 
 function login() {
@@ -22,6 +28,6 @@ function login() {
         alert("Invalid token.");
     } else {
         document.cookie = `token=${$('#token').val()}`;
-        window.location.replace("http://127.0.0.1:8080/todo.html");
+        window.location.replace(`${config.public_url}/todo.html`);
     }
 }
