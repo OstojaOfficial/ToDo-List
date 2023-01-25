@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "build": "npx tsc",
+    "build": "concurrently \"npx tsc\" \"cpx src/public/**/*.{html,js} dist/public\"",
     "start": "node dist/server.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\" \"sass --no-source-map --watch src/styles/main.scss dist/public/css/main.css\" \"cpx src/public/**/*.{html,js} dist/public --watch\""
   },

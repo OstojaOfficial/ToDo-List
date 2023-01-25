@@ -4,11 +4,12 @@ let config = "";
 
 fetch('./js/appconfig.json')
     .then((response) => response.json())
-    .then((json) => config = json);
-
-if(document.cookie.indexOf('token=') != -1) {
-	window.location.replace(`${config.public_url}/todo.html`);
-}
+    .then((json) => {
+        config = json
+        if(document.cookie.indexOf('token=') != -1) {
+            window.location.replace(`${config.public_url}/todo.html`);
+        }
+    });
 
 function generateToken() {
 	var dt = new Date().getTime();

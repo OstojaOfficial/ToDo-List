@@ -6,16 +6,18 @@ let interval_arr = [];
 
 let config = "";
 
+$('#token').val(getCookie("token"));
 fetch('./js/appconfig.json')
     .then((response) => response.json())
-    .then((json) => config = json);
+    .then((json) => {
+		config = json;
 
-if(document.cookie.indexOf('token=') == -1) {
-	window.location.replace(`${config.public_url}/index.html`);
-}
+		if(document.cookie.indexOf('token=') == -1) {
+			window.location.replace(`${config.public_url}/index.html`);
+		}
 
-$('#token').val(getCookie("token"));
-updateList();
+		updateList();
+	});
 
 $(document).on('click', '.edit', (event) => {
 	$("#addMenu").addClass("d-none");
