@@ -19,7 +19,7 @@ function generateToken() {
 
 function login() {
     if(!$('#token').val().match(regex)) {
-        console.log("wrong regex");
+        alert("Invalid token.");
     } else {
         document.cookie = `token=${$('#token').val()}`;
         window.location.replace("http://127.0.0.1:8080/todo.html");

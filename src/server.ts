@@ -9,8 +9,10 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.SERVER_PORT;
 const mongo_url = process.env.MONGO_URL;
+const mongo_db = process.env.MONGO_DB;
 
-mongoose.connect(mongo_url as string);
+mongoose.set('strictQuery', false);
+mongoose.connect(`${mongo_url as string}/${mongo_db as string}`);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", () => {

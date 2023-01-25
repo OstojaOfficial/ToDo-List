@@ -26,26 +26,38 @@
 		<div class="container cardmain d-flex justify-content-center">
 			<div class="card bg-dark">
 				<div class="card-body bg-dark text-white" style="border-radius: 10px; width: 30rem;">
-					<h5 class="card-title"> Naziv/Vreme</h5>
-					<input type="text" placeholder="Naziv" class="form-control" id="input1">
+					<h5 class="card-title">Name/Time</h5>
+					<input type="text" placeholder="Name" class="form-control" id="input-name">
 					<div class="input-group mt-3">
-						<input type="text" class="form-control" id="input12" placeholder="dd">
+						<input type="text" class="form-control" id="input-d" placeholder="dd">
 						<label class="input-group-text">:</label>
-						<input type="text" class="form-control" id="input13" placeholder="hh">
+						<input type="text" class="form-control" id="input-h" placeholder="hh">
 						<label class="input-group-text">:</label>
-						<input type="text" class="form-control" id="input14" placeholder="mm">
+						<input type="text" class="form-control" id="input-m" placeholder="mm">
 						<label class="input-group-text">:</label>
-						<input type="text" class="form-control" id="input15" placeholder="ss">
+						<input type="text" class="form-control" id="input-s" placeholder="ss">
 					  </div>
 					<br>
-					<div class="btn-group" role="group" aria-label="Basic outlined example" style="width: 100%;">
-						<button onclick="addTask()" type="button" class="btn btn-outline-light d-block" id="button1">ADD TASK</button>
-						<button onclick="updateTask()" type="button" class="btn btn-outline-light d-none" id="button2">UPDATE TASK</button>
-						<button onclick="deleteTask()" type="button" class="btn btn-outline-light d-none" id="button3">DELETE TASK</button>
-						<button onclick="cancel()" type="button" class="btn btn-outline-light d-none" id="button4">BACK</button>
-					  </div>
+					<div id="addMenu" class="btn-group" role="group" aria-label="Add Task" style="width: 100%;">
+						<button onclick="addTask()" type="button" class="btn btn-outline-light d-block" id="add">ADD TASK</button>
+					</div>
+					<div id="optionsMenu" class="btn-group d-none" role="group" aria-label="Basic example" style="width: 100%;">
+						<button onclick="updateTask()" type="button" class="btn btn-outline-light d-none" style="width: 34%;" id="update">UPDATE TASK</button>
+						<button onclick="deleteTask()" type="button" class="btn btn-outline-light d-none" style="width: 34%;" id="delete">DELETE TASK</button>
+						<button onclick="back()" type="button" class="btn btn-outline-light d-none" style="width: 30%;" id="back">BACK</button>
+					</div>
 				</div>
 			</div>
+		</div>
+
+		<br>
+		<div class="conatiner d-flex justify-content-center text-white" id="TasksCounter">
+			<h1>Number of Tasks: <span id="taskCounter">0</span></h1>
+		</div>
+
+		<br>
+		<div class="conatiner d-flex justify-content-center">
+			<ul class="list-group bg-dark" style="width: 50%;" id="MainList"></ul>
 		</div>
 
 		<div class="modal fade" id="showToken" tabindex="-1" role="dialog" aria-labelledby="TokenCenterTitle" aria-hidden="true">
@@ -73,7 +85,7 @@
 		</div>
 
 		<script src="jquery/jquery.js"></script>
-		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="js/todo.js"></script>
 	</body>
 </html>
