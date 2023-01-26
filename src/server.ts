@@ -4,6 +4,7 @@ import * as path from 'path';
 import mongoose from 'mongoose';
 import * as fs from 'fs'; 
 import Task from './models/task';
+import swaggerDocs from './utils/swagger';
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ db.once("open", () => {
   console.log("Connected successfully");
   app.listen(config.port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${config.port}`);
+    swaggerDocs(app, config.port);
   });
 });
 
@@ -63,7 +65,32 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
-// Adds task
+/**
+ * @openapi
+ * /api/add:
+ *  post:
+ *    description: Adds new task.
+ *    parameters:
+ *      - name: title
+ *        in: query
+ *        description: Title of the task.
+ *        required: true
+ *      - name: token
+ *        in: query
+ *        description: User's secret token.
+ *        required: true
+ *      - name: expire
+ *        in: query
+ *        description: Date and time when does the task expire presented in UNIX timestamp in seconds.
+ *        required: true
+ *    tags:
+ *      - Tasks
+ *    produces:
+ *      - application/json
+ *    response:
+ *      200:
+ *        description: Sends back added data.
+ */
 app.post('/api/add', (req, res) => {
   const data = new Task ({
     _id: new mongoose.Types.ObjectId(),
@@ -78,7 +105,24 @@ app.post('/api/add', (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 });
 
-// Updates task
+/**
+ * @openapi
+ * /api/upadate/{taskid}:
+ *  patch:
+ *    description: Updates existing task.
+ *    parameters:
+ *      - name: taskid
+ *        in: path
+ *        description: ID of the task.
+ *        required: true
+ *    tags:
+ *      - Tasks
+ *    produces:
+ *      - application/json
+ *    response:
+ *      200:
+ *        description: Retrieves updated data.
+ */
 app.patch('/api/update/:id', (req, res) => {
   const id: string = req.params.id;
 
@@ -101,7 +145,24 @@ app.patch('/api/update/:id', (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 });
 
-// Deletes task
+/**
+ * @openapi
+ * /api/delete/{taskid}:
+ *  delete:
+ *    description: Deletes existing task.
+ *    parameters:
+ *      - name: taskid
+ *        in: path
+ *        description: ID of the task.
+ *        required: true
+ *    tags:
+ *      - Tasks
+ *    produces:
+ *      - application/json
+ *    response:
+ *      200:
+ *        description: OK
+ */
 app.delete('/api/delete/:id', (req, res) => {
   const id = req.params.id;
 
@@ -110,7 +171,24 @@ app.delete('/api/delete/:id', (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 });
 
-// Gets task
+/**
+ * @openapi
+ * /api/get/{taskid}:
+ *  get:
+ *    description: Retreives data of the specific task in JSON format.
+ *    parameters:
+ *      - name: taskid
+ *        in: path
+ *        description: ID of the task.
+ *        required: true
+ *    tags:
+ *      - Tasks
+ *    produces:
+ *      - application/json
+ *    response:
+ *      200:
+ *        description: Retreives data of the specific task in JSON format.
+ */
 app.get('/api/get/:id', (req, res) => {
   const id: string = req.params.id;
 
@@ -119,7 +197,24 @@ app.get('/api/get/:id', (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 });
 
-// Gets task list
+/**
+ * @openapi
+ * /api/get/list:
+ *  get:
+ *    description: Retreives all tasks of the user.
+ *    parameters:
+ *      - name: token
+ *        in: query
+ *        description: User's secret token.
+ *        required: true
+ *    tags:
+ *      - Tasks
+ *    produces:
+ *      - application/json
+ *    response:
+ *      200:
+ *        description: OK
+ */
 app.get('/api/list', (req, res) => {
   const token: string = req.query.token as string;
 
@@ -128,7 +223,19 @@ app.get('/api/list', (req, res) => {
     .catch((error) => res.status(500).json({ error }));
 });
 
-// Gets API health
+/**
+ * @openapi
+ * /api/health:
+ *  get:
+ *    description: Responds if the app is up and running.
+ *    tags:
+ *      - Health check
+ *    produces:
+ *      - application/json
+ *    response:
+ *      200:
+ *        description: OK.
+ */
 app.get('/api/health', (req, res) => {
   res.status(200).json({ "status": "OK" });
 });
