@@ -6,7 +6,7 @@ const options: swaggerJsdocs.Options = {
 	definition: {
 		openapi: "3.0.0",
 		info: {
-			title: 'RESTful API docs for Better ToDo List',
+			title: 'RESTful API documentation for Better ToDo List',
 			version: '1.0.0'
 		},
 		components: {
