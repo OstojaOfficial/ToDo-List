@@ -19,7 +19,7 @@ function generateToken() {
         return (c=='x' ? r :(r&0x3|0x8)).toString(16);
     });
 
-    document.cookie = `token=${uuid}`;
+    document.cookie = `token=${uuid}; expires=Fri, 31 Dec 9999 21:10:10 GMT";`;
 
 	window.location.replace(`${config.public_url}/todo.html`);
 }
@@ -28,7 +28,7 @@ function login() {
     if(!$('#token').val().match(regex)) {
         alert("Invalid token.");
     } else {
-        document.cookie = `token=${$('#token').val()}`;
+        document.cookie = `token=${$('#token').val()}; expires=Fri, 31 Dec 9999 21:10:10 GMT";`;
         window.location.replace(`${config.public_url}/todo.html`);
     }
 }
